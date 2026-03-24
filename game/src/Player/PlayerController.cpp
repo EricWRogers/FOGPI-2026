@@ -1,6 +1,7 @@
 #include <Player/PlayerController.hpp>
 
 #include <Environment/Block.hpp>
+#include <Items/Item.hpp>
 #include <UI/InfoText.hpp>
 
 #include <Canis/App.hpp>
@@ -145,25 +146,29 @@ void PlayerController::Update(float _dt)
             100.0f,
             scannerCollisionMask))
         {
-            if (Block* block = scannerHit.entity->GetScript<Block>()) {
-                std::string blockName = "";
+            std::string name = "";
 
+            if (Block* block = scannerHit.entity->GetScript<Block>()) {
                 switch(block->blockType) {
                     case 0:
-                        blockName = "Rock";
+                        name = "Rock Block";
                         break;
                     case 1:
-                        blockName = "Gold";
+                        name = "Gold Block";
                         break;
                     case 2:
-                        blockName = "Uranium";
+                        name = "Uranium Block";
                         break;
                 }
+            }
 
+            if (I_Item* item = scannerHit.entity->GetScript<I_Item>())
+                name = item->GetName();
+
+            if (name != "")
                 if (Entity* info = entity.scene.GetEntityWithTag("INFO_TEXT"))
                     if (InfoText* infoText = info->GetScript<InfoText>())
-                        infoText->SetText(blockName);
-            }
+                        infoText->SetText(name);
         }
     }
 }

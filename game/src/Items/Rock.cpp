@@ -1,0 +1,30 @@
+#include <Items/Rock.hpp>
+
+#include <Canis/App.hpp>
+#include <Canis/ConfigHelper.hpp>
+
+ScriptConf rockConf = {};
+
+void RegisterRockScript(App& _app)
+{
+    DEFAULT_CONFIG_AND_REQUIRED(rockConf, Rock, RectTransform);
+
+    rockConf.DEFAULT_DRAW_INSPECTOR(Rock);
+
+    _app.RegisterScript(rockConf);
+}
+
+DEFAULT_UNREGISTER_SCRIPT(rockConf, Rock)
+
+void Rock::Create() {}
+
+void Rock::Ready() {}
+
+void Rock::Destroy() {}
+
+void Rock::Update(float _dt) {}
+
+std::string Rock::GetName()
+{
+    return "Rock";
+}
