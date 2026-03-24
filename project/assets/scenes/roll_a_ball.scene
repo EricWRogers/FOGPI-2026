@@ -232,55 +232,6 @@ Entities:
       ModelAsset:
         path: assets/defaults/models/cube.glb
         uuid: 17154083321347000101
-  - Entity: 910020
-    Name: Ball
-    Tag: Player
-    Canis::Transform:
-      active: true
-      position: [0, 1, 0]
-      rotation: [0, 0, 0]
-      scale: [1, 1, 1]
-      parent: 0
-      children:
-        []
-    Canis::Rigidbody:
-      active: true
-      motionType: 2
-      mass: 1
-      friction: 0.25
-      restitution: 0
-      linearDamping: 1.8
-      angularDamping: 0.9
-      useGravity: true
-      isSensor: false
-      layer: 2
-      mask: 4294967295
-      allowSleeping: false
-      lockRotationX: false
-      lockRotationY: false
-      lockRotationZ: false
-      linearVelocity: [0, 0, 0]
-      angularVelocity: [0, 0, 0]
-    Canis::SphereCollider:
-      active: true
-      radius: 0.5
-    Canis::Material:
-      color: [0.2, 0.55, 1, 1]
-      MaterialAsset:
-        uuid: 17490362529814420531
-    Canis::Model:
-      color: [0.2, 0.55, 1, 1]
-      ModelAsset:
-        path: assets/defaults/models/sphere.glb
-        uuid: 17154083321347000102
-    RollABall::PlayerController:
-      moveForce: 3000
-      jumpImpulse: 7.5
-      groundCheckDistance: 0.75
-      groundCollisionMask: 1
-      pickupRadius: 1.15
-      logProgress: true
-      sprint: false
   - Entity: 910100
     Name: Pickup_00
     Tag: Pickup
@@ -647,7 +598,7 @@ Entities:
       useGravity: false
       isSensor: true
       layer: 8
-      mask: 4294967295
+      mask: 2
       allowSleeping: false
       lockRotationX: false
       lockRotationY: false
@@ -666,10 +617,8 @@ Entities:
       ModelAsset:
         path: assets/defaults/models/cube.glb
         uuid: 17154083321347000101
-    RollABall::BoostPad:
+    BoostPad:
       yeetForce: 10
-      player: 910020
-      ground: 910010
   - Entity: 9658217481396747486
     Name: Camera2D
     Tag: ""
@@ -681,7 +630,7 @@ Entities:
     Tag: ""
     Canis::RectTransform:
       active: true
-      position: [0, 0]
+      position: [0, 230]
       size: [70, 33]
       scale: [1, 1]
       originOffset: [0, 0]
@@ -750,3 +699,25 @@ Entities:
       groundCheckDistance: 2
       groundCollisionMask: 1
       pickupRadius: 1.15
+  - Entity: 4317909316194178768
+    Name: Info_Text
+    Tag: INFO_TEXT
+    Canis::RectTransform:
+      active: true
+      position: [0, 0]
+      size: [50, 33]
+      scale: [1, 1]
+      originOffset: [0, 0]
+      depth: 0.001
+      rotation: 0
+      parent: 0
+      children:
+        []
+    Canis::Text:
+      text: Info
+      color: [1, 1, 1, 1]
+      alignment: 2
+      horizontalBoundary: 0
+      FontAsset:
+        uuid: 14618725492368012463
+        fontSize: 32
