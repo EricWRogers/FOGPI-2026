@@ -32,19 +32,19 @@ std::string Uranium::GetName()
     return "Uranium";
 }
 
-std::string Uranium::GetMessage()
+std::string Uranium::GetMessage(Canis::Entity* _interactingEntity)
 {
     return std::string("Press E to Pickup ") + ScriptName;
 }
 
-bool Uranium::HandleInteraction()
+bool Uranium::HandleInteraction(Canis::Entity* _interactingEntity)
 {
     InputManager& input = entity.scene.GetInputManager();
 
     if (input.JustPressedKey(Key::E))
     {
-        if (Entity* playerEntity = entity.scene.GetEntityWithTag("Player"))
-            if (SuperPupUtilities::Inventory* inventory = playerEntity->GetScript<SuperPupUtilities::Inventory>())
+        if (_interactingEntity != nullptr)
+            if (SuperPupUtilities::Inventory* inventory = _interactingEntity->GetScript<SuperPupUtilities::Inventory>())
                 inventory->Add(*this, 1);
 
         entity.Destroy();

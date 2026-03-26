@@ -32,19 +32,19 @@ std::string GoldCoin::GetName()
     return "Gold Coin";
 }
 
-std::string GoldCoin::GetMessage()
+std::string GoldCoin::GetMessage(Canis::Entity* _interactingEntity)
 {
     return std::string("Press E to Pickup ") + GetName();
 }
 
-bool GoldCoin::HandleInteraction()
+bool GoldCoin::HandleInteraction(Canis::Entity* _interactingEntity)
 {
     InputManager& input = entity.scene.GetInputManager();
 
     if (input.JustPressedKey(Key::E))
     {
-        if (Entity* playerEntity = entity.scene.GetEntityWithTag("Player"))
-            if (SuperPupUtilities::Inventory* inventory = playerEntity->GetScript<SuperPupUtilities::Inventory>())
+        if (_interactingEntity != nullptr)
+            if (SuperPupUtilities::Inventory* inventory = _interactingEntity->GetScript<SuperPupUtilities::Inventory>())
                 inventory->Add(*this, 1);
 
         entity.Destroy();

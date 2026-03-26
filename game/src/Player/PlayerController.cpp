@@ -154,11 +154,11 @@ void PlayerController::Update(float _dt)
                 message = block->GetName();
 
             if (I_Interactable* interactable = scannerHit.entity->GetScript<I_Interactable>()) {
-                message = interactable->GetMessage();
+                message = interactable->GetMessage(&entity);
                 if (Entity* info = entity.scene.GetEntityWithTag("INFO_TEXT")) {
                     if (InfoText* infoText = info->GetScript<InfoText>())
                     {
-                        interacted = interactable->HandleInteraction();
+                        interacted = interactable->HandleInteraction(&entity);
                         if (interacted == false) {
                             infoText->SetText(message);
                         }

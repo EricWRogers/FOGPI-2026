@@ -31,12 +31,12 @@ std::string RockBlock::GetName()
     return "Rock Block";
 }
 
-std::string RockBlock::GetMessage()
+std::string RockBlock::GetMessage(Canis::Entity* _interactingEntity)
 {
     return std::string("Left Click to Break ") + GetName();
 }
 
-bool RockBlock::HandleInteraction()
+bool RockBlock::HandleInteraction(Canis::Entity* _interactingEntity)
 {
     InputManager& input = entity.scene.GetInputManager();
     if (!input.LeftClickReleased())

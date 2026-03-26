@@ -30,6 +30,9 @@ void Furnace::Ready() {}
 void Furnace::Destroy() {}
 
 void Furnace::Update(float _dt) {
+    if (!entity.HasComponent<Transform>())
+        return;
+    
     if (timeLeft == 0.0f)
         return;
     
@@ -42,9 +45,7 @@ void Furnace::Update(float _dt) {
         if (goldOreCount > 0)
             timeLeft = processingTime;
 
-        Vector3 spawnOffset = entity.HasComponent<Transform>()
-        ? entity.GetComponent<Transform>().GetGlobalPosition() + Vector3(0.0f, 0.0f, 1.0f)
-        : Vector3(0.0f);
+        Vector3 spawnOffset = entity.GetComponent<Transform>().GetGlobalPosition() + Vector3(0.0f, 0.0f, 1.0f);
 
         for (Entity *root : entity.scene.Instantiate(dropPrefab))
         {
@@ -54,24 +55,37 @@ void Furnace::Update(float _dt) {
     }
 }
 
-std::string Furnace::GetMessage()
+std::string Furnace::GetMessage(Canis::Entity* _interactingEntity)
 {
-    return std::string("Left Click to add Gold Ore.");
+    std::string message = "Left Click to add Gold Ore.";
+
+    if (timeLeft > 0.0f)
+        message = "Processing 1 of " + std::to_string(goldOreCount) + "\n" + message;
+
+    return message;
 }
 
-bool Furnace::HandleInteraction()
+bool Furnace::HandleInteraction(Canis::Entity* _interactingEntity)
 {
     InputManager& input = entity.scene.GetInputManager();
     if (!input.LeftClickReleased())
         return false;
-    
-    if (Entity* playerEntity = entity.scene.GetEntityWithTag("Player"))
-        if (SuperPupUtilities::Inventory* inventory = playerEntity->GetScript<SuperPupUtilities::Inventory>())
-            if (inventory->Remove("Gold Ore", 1))
-                goldOreCount++;
 
-    if (timeLeft == 0.0f && goldOreCount != 0)
-        timeLeft = processingTime;
+    if (_interactingEntity == nullptr)
+        return false;
+
+    if (SuperPupUtilities::Inventory* inventory = _interactingEntity->GetScript<SuperPupUtilities::Inventory>())
+    {
+        if (inventory->Remove("Gold Ore", 1))
+        {
+            goldOreCount++;
+
+            if (timeLeft == 0.0f)
+                timeLeft = processingTime;
+
+            return true;
+        }
+    }
 
     return false;
 }

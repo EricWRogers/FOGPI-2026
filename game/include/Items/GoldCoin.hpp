@@ -17,8 +17,8 @@ public:
     void Update(float _dt);
 
     std::string GetName() override;
-    std::string GetMessage() override;
-    bool HandleInteraction() override;
+    std::string GetMessage(Canis::Entity* _interactingEntity) override;
+    bool HandleInteraction(Canis::Entity* _interactingEntity) override;
 };
 
 extern void RegisterGoldCoinScript(Canis::App& _app);

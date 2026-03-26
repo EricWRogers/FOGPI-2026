@@ -4,19 +4,19 @@
 
 #include <I_Interactable.hpp>
 
-class Furnace : public Canis::ScriptableEntity, public I_Interactable
+class CoiningPress : public Canis::ScriptableEntity, public I_Interactable
 {
 private:
 
 public:
-    static constexpr const char* ScriptName = "Furnace";
+    static constexpr const char* ScriptName = "CoiningPress";
 
-    int goldOreCount = 0;
+    int goldCount = 0;
     float timeLeft = 0.0f;
     float processingTime = 5.0f;
     Canis::SceneAssetHandle dropPrefab;
 
-    Furnace(Canis::Entity &_entity) : Canis::ScriptableEntity(_entity) {}
+    CoiningPress(Canis::Entity &_entity) : Canis::ScriptableEntity(_entity) {}
 
     void Create();
     void Ready();
@@ -27,5 +27,5 @@ public:
     bool HandleInteraction(Canis::Entity* _interactingEntity) override;
 };
 
-extern void RegisterFurnaceScript(Canis::App& _app);
-extern void UnRegisterFurnaceScript(Canis::App& _app);
+extern void RegisterCoiningPressScript(Canis::App& _app);
+extern void UnRegisterCoiningPressScript(Canis::App& _app);

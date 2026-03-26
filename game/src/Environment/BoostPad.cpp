@@ -1,5 +1,4 @@
 #include <Environment/BoostPad.hpp>
-#include <UI/InfoText.hpp>
 
 #include <Canis/App.hpp>
 #include <Canis/ConfigHelper.hpp>
@@ -54,10 +53,6 @@ void BoostPad::CheckSensorEnter()
             playerRigidbody.AddForce(
                 Vector3(0.0f, yeetForce, 0.0f),
                 Rigidbody3DForceMode::IMPULSE);
-            
-            if (Entity* info = entity.scene.GetEntityWithTag("INFO_TEXT"))
-                if (InfoText* infoText = info->GetScript<InfoText>())
-                    infoText->SetText("Boost!!!");
 
             break;
         }

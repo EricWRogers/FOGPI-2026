@@ -32,19 +32,19 @@ std::string Ice::GetName()
     return "Ice";
 }
 
-std::string Ice::GetMessage()
+std::string Ice::GetMessage(Canis::Entity* _interactingEntity)
 {
     return std::string("Press E to Pickup ") + ScriptName;
 }
 
-bool Ice::HandleInteraction()
+bool Ice::HandleInteraction(Canis::Entity* _interactingEntity)
 {
     InputManager& input = entity.scene.GetInputManager();
 
     if (input.JustPressedKey(Key::E))
     {
-        if (Entity* playerEntity = entity.scene.GetEntityWithTag("Player"))
-            if (SuperPupUtilities::Inventory* inventory = playerEntity->GetScript<SuperPupUtilities::Inventory>())
+        if (_interactingEntity != nullptr)
+            if (SuperPupUtilities::Inventory* inventory = _interactingEntity->GetScript<SuperPupUtilities::Inventory>())
                 inventory->Add(*this, 1);
 
         entity.Destroy();

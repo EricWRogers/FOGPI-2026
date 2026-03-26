@@ -31,12 +31,12 @@ std::string GoldBlock::GetName()
     return "Gold Block";
 }
 
-std::string GoldBlock::GetMessage()
+std::string GoldBlock::GetMessage(Canis::Entity* _interactingEntity)
 {
     return std::string("Left Click to Break ") + GetName();
 }
 
-bool GoldBlock::HandleInteraction()
+bool GoldBlock::HandleInteraction(Canis::Entity* _interactingEntity)
 {
     InputManager& input = entity.scene.GetInputManager();
     if (!input.LeftClickReleased())
@@ -45,14 +45,21 @@ bool GoldBlock::HandleInteraction()
     const Vector3 spawnOffset = entity.HasComponent<Transform>()
         ? entity.GetComponent<Transform>().GetGlobalPosition()
         : Vector3(0.0f);
-    Scene& scene = entity.scene;
 
     entity.Destroy();
 
-    for (Entity *root : scene.Instantiate(dropPrefab))
+    for (int i = 0; i < 5; i++)
     {
-        if (root != nullptr && root->HasComponent<Transform>())
-            root->GetComponent<Transform>().position += spawnOffset;
+        Vector3 randomOffset;
+        randomOffset.x = ((rand() % 100) * 0.01) - 0.5;
+        randomOffset.y = ((rand() % 100) * 0.01) - 0.5;
+        randomOffset.z = ((rand() % 100) * 0.01) - 0.5;
+
+        for (Entity *root : entity.scene.Instantiate(dropPrefab))
+        {
+            if (root != nullptr && root->HasComponent<Transform>())
+                root->GetComponent<Transform>().position += spawnOffset + randomOffset;
+        }
     }
 
     return true;

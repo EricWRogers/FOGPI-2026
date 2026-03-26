@@ -31,12 +31,12 @@ std::string IceBlock::GetName()
     return "Ice Block";
 }
 
-std::string IceBlock::GetMessage()
+std::string IceBlock::GetMessage(Canis::Entity* _interactingEntity)
 {
     return std::string("Left Click to Break ") + GetName();
 }
 
-bool IceBlock::HandleInteraction()
+bool IceBlock::HandleInteraction(Canis::Entity* _interactingEntity)
 {
     InputManager& input = entity.scene.GetInputManager();
     if (!input.LeftClickReleased())
