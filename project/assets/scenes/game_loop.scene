@@ -676,6 +676,8 @@ Entities:
       parent: 0
       children:
         - 513738397781658186
+    RollABall::PauseMenuController:
+      pauseMenu: 513738397781658186
   - Entity: 513738397781658186
     Name: PauseMenu
     Tag: ""
@@ -756,9 +758,9 @@ Entities:
         uuid: 16060716090729117806
     Canis::UIButton:
       active: true
-      targetEntity: 0
-      targetScript: ""
-      actionName: ""
+      targetEntity: 15184857591600661882
+      targetScript: RollABall::PauseMenuController
+      actionName: resume
       baseColor: [0.14, 0.18, 0.24, 0.98]
       hoverColor: [0.19, 0.25, 0.34, 1]
       pressedColor: [0.1, 0.14, 0.18, 1]
@@ -818,9 +820,9 @@ Entities:
         uuid: 16060716090729117806
     Canis::UIButton:
       active: true
-      targetEntity: 0
-      targetScript: ""
-      actionName: ""
+      targetEntity: 15184857591600661882
+      targetScript: RollABall::PauseMenuController
+      actionName: quit
       baseColor: [0.14, 0.18, 0.24, 0.98]
       hoverColor: [0.19, 0.25, 0.34, 1]
       pressedColor: [0.1, 0.14, 0.18, 1]
