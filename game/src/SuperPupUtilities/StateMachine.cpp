@@ -9,6 +9,9 @@ namespace SuperPupUtilities
 {
     State::State(std::string _name) : m_name(std::move(_name)) {}
 
+    StateMachine::StateMachine(Canis::Entity& _entity) :
+        Canis::ScriptableEntity(_entity) {}
+
     const std::string& State::GetName() const
     {
         return m_name;
@@ -17,6 +20,11 @@ namespace SuperPupUtilities
     StateMachine* State::GetStateMachine() const
     {
         return m_stateMachine;
+    }
+
+    void StateMachine::Destroy()
+    {
+        ClearStates();
     }
 
     void StateMachine::ClearStates()

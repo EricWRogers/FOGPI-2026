@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Canis/Entity.hpp>
+
 #include <string>
 #include <vector>
 
@@ -27,13 +29,16 @@ namespace SuperPupUtilities
         StateMachine* m_stateMachine = nullptr;
     };
 
-    class StateMachine
+    class StateMachine : public Canis::ScriptableEntity
     {
     public:
+        explicit StateMachine(Canis::Entity& _entity);
+
+        void Destroy() override;
         void ClearStates();
         void AddState(State& _state);
         bool ChangeState(const std::string& _stateName);
-        void Update(float _dt);
+        void Update(float _dt) override;
 
         State* GetCurrentState() const;
         const std::string& GetCurrentStateName() const;
